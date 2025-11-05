@@ -1,32 +1,42 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <string.h>
 
 int main() {
-    int n = 42;
-
-    char str[n];
+    char str[42];
+    char new_str[42];
 
     srand((unsigned)time(NULL));
-    for (int i = 0; i < n; i++) {
-        if (0 < i % 7 && i % 7 < 6){
-            str[i] = rand() % 26 + 65;
-        } else if (i % 7 == 6 && i != n - 1){
+    for (int i = 0; i < 41; i++) {
+        if (i % 7 == 6) {
             str[i] = ' ';
         } else {
-            str[i] = '\0';
+            str[i] = (char)((rand() % 26) + 65);
+        }
+    }
+    str[41] = '\0';
+
+    printf("%s\n", str);
+
+    int flag = 1;
+    char word[6];
+
+    for (int i = 0; i < 42; i+=7) {
+        flag = 1;
+        for (int j = i; j-i < 6;j++) {
+            if ('A' == str[j] || 'D' == str[j] || 'E' == str[j]) {
+                flag = 0;
+            }
+            word[j-i] = str[j];
+        }
+        if (flag == 0) {
+            strcat(new_str, word);
+            strcat(new_str, " ");
         }
     }
 
-    for (int i = 0; i < n; i += 7) {
-        
-    }
-
-    for (int i = 0; i < n; i++) {
-        printf("%c", str[i]);
-    }
+    printf("%s", new_str);
 
     return 0;
 }
-
