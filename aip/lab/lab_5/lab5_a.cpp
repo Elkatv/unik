@@ -57,7 +57,7 @@ void output_romb(int n, char** matrix) {
         for (int o = 0; o < n - 1 - i; o++) {
             putchar(' ');
         }
-        for (int j = 0; j <= i; j++) {
+        for (int j = 0; j < i + 1; j++) {
             printf("%c ", matrix[k][m]);
             m++;
             k--;
