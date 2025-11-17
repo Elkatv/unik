@@ -97,7 +97,7 @@ void search(int n, int m, int** matrix) {
         for (int i = 0; i < n; i++) {
             if (j > min_i && j > max_i) {
                 matrix[i][j-2] = matrix[i][j];
-            } else if (j > min_i && j > max_i) {
+            } else if (j > min_i || j > max_i) {
                 matrix[i][j-1] = matrix[i][j];
             }
             
