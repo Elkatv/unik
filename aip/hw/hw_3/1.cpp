@@ -1,93 +1,70 @@
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <iostream>
+#include <string.h>
 
-#define LEN_WORD 32
-#define LEN_STRING 100 
 
-struct stack {
-    char str[LEN_WORD];
-    stack* next;
+struct simple_list {
+    char* word;
+    simple_list* next;
 };
 
-void add(stack* root, char* strin, int a, int b) {
-    stack* elem = (stack*)malloc(sizeof(stack));
-
-    for(int i = a; i < a + (b - a) % 31; i++) {
-        elem->str[i - a] = strin[i];
-    }
-    elem->next = nullptr;
-
-    while(root->next != NULL) {
-        root = root->next;
-    }
-    root->next = elem;
-}
-
-void output(stack* root) {
-    while(root->next != NULL) {
-        std::cout << root->str;
-        root = root->next;
-    }
-}
-
-void free_stack(stack* root) {
-    stack* elem = root;
-    while(root->next != NULL) {
-        elem = root->next;
-        free(root);
-        root = elem;
-    }
-    free(elem);
-    free(root);
-}
-
-void output_str(char* str, int a, int b) {
-    for (int i = a; i < b; i++) {
-        std::cout << str[i];
-    }
-    std::cout <<std::endl;
-
-}
+simple_list* add(simple_list* head, char* value);
+void output(simple_list* head);
+void free_list(simple_list* head);
 
 int main() {
-    char str[LEN_STRING];
+    simple_list* head = NULL;
 
-    std::cin.getline(str, LEN_STRING - 1, '\n');
+    // simple_list* root = head;
+    
+    char input[1024];
 
-    stack* root = (stack*)malloc(sizeof(stack));
-    root->str[0] = '\0';
-    root->next = nullptr;
+    fgets(input, sizeof(input), stdin);
+    char* word = strtok(input, " ");
 
-    int j = 0; 
-    int flag;
-    char* word[LEN_WORD];
+    while (word != NULL) {
 
-    std::cout << str << std::endl;
-    for (int i = 0; i < LEN_STRING; i += j) {
-        j = i;
-        flag = 1;
+        head = add(head, word);
 
-        while (flag == 1) {
-            if (str[j] == ' ') {
-                flag = 0;
-            }
-            j++;
-        }
-
-        output_str(str, i, j);
-
-        
-
-        
-
-        add(root, str, i, j);
-        
+        word = strtok(NULL, " ");
     }
+    output(head);
+    free_list(head);
 
-    output(root);
-    free_stack(root);
+}
 
+simple_list* add(simple_list* head, char* value) {
+    simple_list* new_elem = (simple_list*)malloc(sizeof(simple_list));
 
-    return 0;
+    new_elem->word = (char*)malloc((strlen(value) + 1) * sizeof(char));
+    strcpy(new_elem->word, value);
+    new_elem->next = head;
+
+    head = new_elem;
+
+    simple_list* len_elem = (simple_list*)malloc(sizeof(simple_list));
+
+    len_elem->word = (char*)malloc(8 * sizeof(char));
+    snprintf(len_elem->word, 8, "%d", (int)strlen(value));
+    len_elem->next = head;
+
+    head = new_elem;
+
+    return head;
+}
+
+void output(simple_list* head) {
+    while (head != NULL) {
+        printf("%s ", head->word);
+        head = head->next;
+    }
+}
+
+void free_list(simple_list* head) {
+    simple_list* next;
+    while (head != nullptr) {
+        next = head->next;
+        free(head);
+        head = next;
+    }
 }

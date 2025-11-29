@@ -12,6 +12,7 @@ void free_list(simple_list* head);
 
 int main() {
     simple_list* head = (simple_list*)malloc(sizeof(struct simple_list));
+    simple_list* root = head;
 
     char a;
     scanf("%c", &a);
@@ -19,12 +20,12 @@ int main() {
     head->elem = a;
     head->next = nullptr;
 
-    bool flag = true;
+    int flag = 1;
     int c = 2;
-    while (flag) {
+    while (flag == 1) {
         a = getchar();
         if (a == '.') {
-            flag = false;
+            flag = 0;
         } else {
             add(head, a);
             c += 1;
@@ -39,7 +40,7 @@ int main() {
         count += 1;
     }
 
-    free_list(head);
+    free_list(root);
 
 }
 
@@ -60,5 +61,5 @@ void free_list(simple_list* head) {
         next = head->next;
         free(head);
         head = next;
-    } 
+    }
 }
