@@ -24,6 +24,10 @@ int main() {
 
     while (word != NULL) {
 
+        if (word[strlen(word) - 1] == '\n') {
+            word[strlen(word) - 1] = '\0';
+        }
+
         head = add(head, word);
 
         word = strtok(NULL, " ");
@@ -34,19 +38,21 @@ int main() {
 }
 
 simple_list* add(simple_list* head, char* value) {
+
+    simple_list* len_elem = (simple_list*)malloc(sizeof(simple_list));
+
+    len_elem->word = (char*)malloc(5 * sizeof(char));
+    snprintf(len_elem->word, 5, "%d", (int)strlen(value));
+    len_elem->next = head;
+
+    head = len_elem;
+
+
     simple_list* new_elem = (simple_list*)malloc(sizeof(simple_list));
 
     new_elem->word = (char*)malloc((strlen(value) + 1) * sizeof(char));
     strcpy(new_elem->word, value);
     new_elem->next = head;
-
-    head = new_elem;
-
-    simple_list* len_elem = (simple_list*)malloc(sizeof(simple_list));
-
-    len_elem->word = (char*)malloc(8 * sizeof(char));
-    snprintf(len_elem->word, 8, "%d", (int)strlen(value));
-    len_elem->next = head;
 
     head = new_elem;
 
