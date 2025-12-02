@@ -68,7 +68,7 @@ void output(simple_list* head) {
 
 void free_list(simple_list* head) {
     simple_list* next;
-    while (head != nullptr) {
+    while (head != NULL) {
         next = head->next;
         free(head);
         head = next;
