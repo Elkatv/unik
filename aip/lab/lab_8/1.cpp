@@ -1,5 +1,5 @@
 #include <iostream>
-#include <string>
+#include <string.h>
 
 using namespace std;
 
@@ -7,16 +7,18 @@ using namespace std;
 class Person {
 
 protected:
-    string full_name;
+    char* full_name;
     int year_of_birth;
     int current_year;
 
 public:
-    Person(string person_name, int year) :
-        full_name(person_name),
+    Person(char* person_name, int year) :
         year_of_birth(year),
         current_year(2025)
-    {}
+    {
+        full_name = (char*)malloc(sizeof(person_name) + 1);
+        strcpy(full_name, person_name);
+    }
 
     void output() {
         cout << "ФИО:" << full_name << endl << "Год рождения:" << year_of_birth << endl;
@@ -33,7 +35,7 @@ protected:
     int year_driver_license;
 
 public:
-    Driver(string person_name, int year, int drive_license) : 
+    Driver(char* person_name, int year, int drive_license) : 
         Person(person_name, year), 
         year_driver_license(drive_license)
     {}
@@ -54,7 +56,10 @@ public:
 
 
 int main() {
-    Person a("Иванов Иван Иванович", 1980);
+
+
+    char name[] = "Иванов Иван Иванович";
+    Person a(name, 1980);
 
     a.output();
 
@@ -64,7 +69,7 @@ int main() {
     cout << endl;
 
 
-    Driver b("Иванов Иван Иванович", 1980, 2000);
+    Driver b(name, 1980, 2000);
 
     b.output();
 

@@ -6,13 +6,15 @@ using namespace std;
 class Fruit {
 
 private:
-    string name_fruit;
+    char* name_fruit;
     float vitanime_c;
 
 public:
-    Fruit(string name, float c) {
-        name_fruit = name;
-        vitanime_c = c;
+    Fruit(char* name, float c) :
+        vitanime_c(c)
+    {
+        name_fruit = (char*)malloc(sizeof(name) + 1);
+        strcpy(name_fruit, name);
     }
 
     void output() {
@@ -27,13 +29,14 @@ public:
 
 
 int main() {
-
-    Fruit a("Orange", 53.2);
+    char name1[] = "Orange";
+    Fruit a(name1, 53.2);
 
     a.output();
     cout << "Можно съесть в день (кг): " << a.daily_allowance_fruit() << endl;
 
-    Fruit b("Apple", 95);
+    char name2[] = "Orange";
+    Fruit b(name2, 95);
 
     b.output();
     cout << "Можно съесть в день (кг): " << b.daily_allowance_fruit() << endl;
