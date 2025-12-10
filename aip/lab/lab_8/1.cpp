@@ -14,10 +14,13 @@ protected:
 public:
     Person(char* person_name, int year) :
         year_of_birth(year),
-        current_year(2025)
+        current_year(2025) 
     {
         full_name = (char*)malloc(sizeof(person_name) + 1);
         strcpy(full_name, person_name);
+    }
+    ~Person() {
+        free(full_name);
     }
 
     void output() {
@@ -29,7 +32,7 @@ public:
     }
 };
 
-class Driver : public Person{
+class Driver : public Person {
 
 protected:
     int year_driver_license;
@@ -39,6 +42,7 @@ public:
         Person(person_name, year), 
         year_driver_license(drive_license)
     {}
+    ~Driver() {}
     
     void output() {
         cout << "ФИО:" << full_name << endl << "Год рождения:" << year_of_birth << endl << "Год получения водительских прав: " << year_driver_license << endl;
@@ -64,8 +68,7 @@ int main() {
     a.output();
 
     cout << "Возвраст: " << a.age() << endl;
-
-
+    
     cout << endl;
 
 

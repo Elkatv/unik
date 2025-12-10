@@ -16,6 +16,9 @@ public:
         name_fruit = (char*)malloc(sizeof(name) + 1);
         strcpy(name_fruit, name);
     }
+    ~Fruit() {
+        free(name_fruit);
+    }
 
     void output() {
         cout << "Название: " << name_fruit << endl << "Содержание витамина С (мг/100г): " << vitanime_c << endl;
@@ -34,6 +37,8 @@ int main() {
 
     a.output();
     cout << "Можно съесть в день (кг): " << a.daily_allowance_fruit() << endl;
+
+    cout << endl;
 
     char name2[] = "Orange";
     Fruit b(name2, 95);
