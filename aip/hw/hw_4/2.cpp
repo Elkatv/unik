@@ -40,9 +40,10 @@ int main() {
     char n6_text[] = "Новость 6";
     News n6(n6_text, n6_text);
 
+
     a.add_new_news(n6);
     cout << endl << "Вывод всех не прочитанных новостей" << endl;
-    a.read_news_feed();
+    n6.output();
 
     cout << endl << "Вывод длины новостной ленты" << endl;
     cout << a.len_news_feeds();
