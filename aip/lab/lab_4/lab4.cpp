@@ -5,46 +5,50 @@
 using namespace std;
 
 int main() {
-    int len = 30;
+    int len;
 
-    int h[len];
+    cout << "Введите число от 1 до 45: ";
+
+    cin >> len;
+
+    int* a = new int[len];
+
     srand((unsigned)time(NULL));
     for (int i = 0;  i < len; i++) {
-        h[i] = rand() % 10;
+        a[i] = rand() % 10;
     }
 
-    int max = h[0];
-    for (int i = 1;  i < len; i++) {
-        if (h[i] > max) {
-            max = h[i];
-        }
+    int mean = 0;
+
+    for (int i = 0; i < len; i++) {
+        mean += a[i];
     }
 
-    cout << "Максимальное число: " << max << endl;
+    mean = mean / len;
+
+    cout << "Среднее арифметическое: " << mean << endl;
     cout << "Изначальный массив:  ";
-    for (int i = 0;  i < 30; i++) {
-        cout << h[i] << " ";
+    for (int i = 0;  i < len; i++) {
+        cout << a[i] << " ";
     }
     cout << endl;
 
     int new_len = len;
     for (int i = 0; i < len - 1; i++) {
-        if (h[i] == max) {
+        if (a[i] > mean) {
             new_len--;
             for (int j = i; j < new_len; j++) {
-                h[j] = h[j + 1];
+                a[j] = a[j + 1];
             }
+            i--;
         }
     }
 
-    if (h[new_len - 1] == max) {
-        new_len--;
-    }
-
     cout << "Получившийся массив: ";
-    for (int i = 0;  i < new_len; i++) {
-        cout << h[i] << " ";
+    for (int i = 0; i < new_len; i++) {
+        cout << a[i] << " ";
     }
 
+    delete[] a;
     return 0;
 } 
