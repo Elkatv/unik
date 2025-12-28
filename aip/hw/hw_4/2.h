@@ -24,8 +24,10 @@ public:
     }
 
     News_Feed(const News_Feed &n) {
-        feeds = (News*)malloc(sizeof(News) * n.count);
+        count = n.count;
 
+        feeds = (News*)malloc(sizeof(News) * n.count);
+        
         for (int i = 0; i < n.count; i++) {
             feeds[i] = n.feeds[i];
         }
